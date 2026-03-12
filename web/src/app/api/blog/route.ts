@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-// Supabase admin client (bypasses RLS)
-const supabaseAdmin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-)
+// Supabase admin client (bypasses RLS) - Lazily initialized to avoid build-time errors
+const getSupabaseAdmin = () => {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+    
+    if (!url || !key || key.includes('PEGA_AQUI')) {
+        throw new Error('Supabase URL or Service Role Key is missing or invalid')
+    }
+    
+    return createClient(url, key)
+}
 
 function generateSlug(title: string): string {
     return title
@@ -56,6 +62,7 @@ export async function POST(req: NextRequest) {
         const slug = customSlug || generateSlug(title)
         const read_time_minutes = estimateReadTime(content)
 
+        const supabaseAdmin = getSupabaseAdmin()
         const { data, error } = await supabaseAdmin
             .from('blog_posts')
             .insert({
@@ -99,6 +106,7 @@ export async function GET(req: NextRequest) {
     const limit = parseInt(url.searchParams.get('limit') || '10')
     const category = url.searchParams.get('category')
 
+    const supabaseAdmin = getSupabaseAdmin()
     let query = supabaseAdmin
         .from('blog_posts')
         .select('id, title, slug, excerpt, cover_image_url, author, category, tags, read_time_minutes, created_at')

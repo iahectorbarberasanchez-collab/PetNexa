@@ -59,8 +59,13 @@ export default function PWAInstallPrompt() {
   }
 
   const handleDismiss = () => {
+    console.log('PWA: Prompt dismissed manually')
     setIsVisible(false)
     localStorage.setItem(isIOS ? 'pwa_ios_prompt_last' : 'pwa_prompt_dismissed_at', Date.now().toString())
+  }
+
+  const handleIOSClick = () => {
+    alert('Toca el botón "Compartir" de tu navegador (el cuadrado con la flecha hacia arriba) y luego selecciona "Añadir a la pantalla de inicio".')
   }
 
   return (
@@ -103,18 +108,21 @@ export default function PWAInstallPrompt() {
             </div>
 
             <div className="flex items-center gap-2 relative z-10">
-              {!isIOS ? (
+              {isIOS ? (
+                <button
+                  onClick={handleIOSClick}
+                  className="flex items-center gap-1 text-violet-400 hover:text-violet-300 transition-colors cursor-pointer p-2"
+                >
+                  <Share2 size={16} />
+                  <span className="text-[10px] font-bold uppercase tracking-widest">Share</span>
+                </button>
+              ) : (
                 <button
                   onClick={handleInstall}
                   className="bg-violet-600 hover:bg-violet-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 shadow-lg shadow-violet-600/30"
                 >
                   Instalar
                 </button>
-              ) : (
-                <div className="flex items-center gap-1 text-violet-400">
-                  <Share2 size={16} />
-                  <span className="text-[10px] font-bold uppercase tracking-widest">Share</span>
-                </div>
               )}
               
               <button

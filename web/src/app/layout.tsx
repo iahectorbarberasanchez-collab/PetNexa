@@ -18,6 +18,10 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'PetNexa',
+    startupImage: '/icons/icon-512x512.png',
+  },
+  icons: {
+    apple: '/icons/icon-512x512.png',
   },
   formatDetection: {
     telephone: false,

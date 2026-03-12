@@ -1,0 +1,29 @@
+{
+  "name": "PetNexa",
+  "short_name": "PetNexa",
+  "description": "La plataforma definitiva para dueños de mascotas.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#07070F",
+  "theme_color": "#6C3FF5",
+  "icons": [
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

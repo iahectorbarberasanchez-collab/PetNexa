@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* Custom Scrollbar for Webkit */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(13, 13, 25, 0.5);
+    border-left: 1px solid rgba(108, 63, 245, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(108, 63, 245, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(108, 63, 245, 0.6);
+}
+
+/* Base body settings */
+body {
+    background-color: #07070F;
+    color: #F8F8FF;
+    overflow-x: hidden;
+}
+
+/* Dashboard Layout — sidebar is position:fixed so we use margin-left */
+.dashboard-container {
+    min-height: 100vh;
+    background-color: #07070F;
+}
+
+.dashboard-main {
+    margin-left: 260px;
+    padding: 2rem 2.5rem;
+    position: relative;
+    min-height: 100vh;
+    z-index: 1;
+    transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+    .dashboard-main {
+        margin-left: 0 !important;
+        padding: calc(env(safe-area-inset-top, 0px) + 5rem) 1rem calc(env(safe-area-inset-bottom, 0px) + 7rem) 1rem;
+    }
+    
+    .sidebar-desktop {
+        display: none !important;
+    }
+
+    /* Extreme Mobile UX - Tactile Feedback */
+    .tap-bounce {
+        transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tap-bounce:active {
+        transform: scale(0.96);
+    }
+
+    /* Improve default touch targets for links and buttons on mobile */
+    a, button {
+        min-height: 44px; /* Apple's recommended minimum */
+        min-width: 44px;
+    }
+
+    /* Specifically for cards in the dashboard */
+    .premium-card {
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+
+    .premium-card:active {
+        transform: translateY(2px) scale(0.98);
+        opacity: 0.9;
+    }
+}
+
+/* Noise overlay */
+.noise-overlay {
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Orb decorations */
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Glass card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+}
+
+/* Buttons */
+.btn-ghost {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(248, 248, 255, 0.7);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 8px 14px;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #F8F8FF;
+}
+
+.btn-danger {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.18);
+    color: #EF4444;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 8px 12px;
+    transition: all 0.2s;
+}
+
+.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.btn-danger:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* CSS variables */
+:root {
+    --bg-card: rgba(255, 255, 255, 0.025);
+    --border: rgba(255, 255, 255, 0.07);
+    --purple: #6C3FF5;
+    --purple-light: #8B5CF6;
+    --cyan: #00D4FF;
+    --green: #00E5A0;
+}
